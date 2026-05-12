@@ -209,15 +209,6 @@ cd ..
 sudo rm -r Rose-Pine-GTK-Theme
 ```
 
-### Tela Circle Icons
-```
-git clone --depth 1 https://github.com/vinceliuice/Tela-circle-icon-theme.git
-cd Tela-circle-icon-theme
-./install.sh -a
-cd ..
-sudo rm -rf Tela-circle-icon-theme
-```
-
 ### Gnome Tweaks
 
 - Set the Shell theme to `Adwaita`
