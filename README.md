@@ -1,4 +1,4 @@
-[Hi :)](https://nico-shock.github.io/My-Fedora44-Workspace/)
+[Hi :)](https://nico-shock.github.io/My-Fedora-44-Workspace/)
 
 ## General Info
 
