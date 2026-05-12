@@ -366,26 +366,24 @@ sudo dnf in -y dejavu-sans-mono-fonts powerline-fonts
 
 ### Icons
 
-- My primary icons are the Tela Circle Icons: go to the icon settings in Appearance in the KDE Plasma settings and click on get new, here you can search for every icon set
-
+- My primary icons are the **Tela Circle Icons**: go to the icon settings in Appearance in the KDE Plasma settings and click on get new, here you can search for every icon set
 - Secondarily I like these fonts:
-- Papirus
-- win11-purple-dark
-- BeautySolar
-
+  - Papirus
+  - win11-purple-dark
+  - BeautySolar
 
 ### Mouse Cursor:
 
-Mainly I use the MacOS Tahoe one, you need to manually install these: https://store.kde.org/p/2300466
+Mainly I use the **MacOS Tahoe** one, you need to manually install these: https://store.kde.org/p/2300466
 
-- In your home directory create a new folder ".icons"
-- Put the "MacOS-Tahoe-Cursor" in the .icons folder
+- In your home directory create a new folder **".icons"**
+- Put the **"MacOS-Tahoe-Cursor"** in the **.icons** folder
 - Now in the appearance settings you can change your mouse cursor to this one
 
 - Secondarily I also like other cursors:
-- Babita cursor
-- Breeze light cursor
-- Modern winxp cursor
+  - Babita cursor
+  - Breeze light cursor
+  - Modern winxp cursor
 
 ## Browser Recommendations
 
