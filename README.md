@@ -25,14 +25,14 @@ sudo vim /etc/dnf/dnf.conf
 Add the following lines:
 ```
 max_parallel_downloads=20
-fastestmirror=True
+defaultyes=True
 ```
 
 ### Install additional packages
 
 ```
 sudo dnf in -y flatpak git wget thermald ufw fzf python3 python3-pip fastfetch bluez blueman bluez-libs gnome-tweaks gedit
-sudo systemctl enable --now bluetooth ufw
+sudo systemctl enable --now ufw bluetooth
 sudo ufw default deny
 ```
 
@@ -49,7 +49,7 @@ sudo dnf group install multimedia
 
 ### Install Nvidia Drivers
 ```
-sudo dnf in -y @base-x kernel-devel kernel-headers gcc make dkms acpid libglvnd-devel pkgconf xorg-x11-server-Xwayland libxcb egl-wayland akmod-nvidia xorg-x11-drv-nvidia-cuda --skip-broken --allowerasing
+sudo dnf in -y @base-x gcc make dkms acpid libglvnd-devel pkgconf xorg-x11-server-Xwayland libxcb egl-wayland akmod-nvidia xorg-x11-drv-nvidia-cuda --skip-broken --allowerasing
 sudo reboot now
 ```
 
@@ -73,7 +73,7 @@ echo "options nvidia-drm modeset=1 fbdev=0" >> /etc/modprobe.d/nvidia.conf
 
 Gnome:
 ```
-sudo dnf in gnome-shell gnome-terminal gnome-control-center gnome-software gnome-menus gnome-shell-extensions gnome-system-monitor mutter gdm
+sudo dnf in gnome-shell ptyxis gnome-control-center gnome-software gnome-menus gnome-shell-extensions gnome-system-monitor mutter gdm
 sudo systemctl enable gdm
 ```
 
@@ -113,7 +113,7 @@ sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 
 ### Installing Gaming Meta
 ```
-sudo dnf in -y @c-development @development-tools steam lutris wine bottles gamescope mangohud libva-utils vulkan-tools mesa-dri-drivers mesa-vulkan-drivers gamemode libadwaita wine-dxvk dxvk-native goverlay --skip-broken
+sudo dnf in -y steam lutris wine bottles gamescope mangohud libva-utils vulkan-tools mesa-dri-drivers mesa-vulkan-drivers gamemode libadwaita wine-dxvk dxvk-native goverlay --skip-broken
 sudo dnf copr enable atim/heroic-games-launcher
 sudo dnf in -y heroic-games-launcher-bin
 ```
@@ -187,7 +187,7 @@ Here are more of my custom configs:
 
 ### Extensions Manager Installation:
 ```
-flatpak install flathub com.mattjakeman.ExtensionManager
+flatpak install -y flathub com.mattjakeman.ExtensionManager
 ```
 
 ### MacOS Tahoe GTK Theme:
