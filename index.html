@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html class="theme-light" lang="de">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Fedora 44 Workspace Setup</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Segoe UI', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            copilot: {
+              blue: '#0f6cbd',
+              blurple: '#4f52b2',
+            }
+          }
+        }
+      }
+    }
+</script>
+<style>
+    :root {
+      --bg: #f8f4f1;
+      --surface: #ffffff;
+      --border: #e8e4e0;
+      --text: #2c2c2c;
+      --text-muted: #787675;
+      --code-bg: #f0ece8;
+      --primary: #5b5bd6;
+      --primary-text: #ffffff;
+      --glass-bg: rgba(255, 255, 255, 0.55);
+      --code-teal-text: #2a8a7c;
+      --code-teal-bg: #e6f0ef;
+      --dd-bg: rgba(255, 255, 255, 0.55);
+      --dd-active: rgba(0,0,0,0.045);
+      --dd-hover: rgba(0,0,0,0.04);
+      --dd-text: #2c2c2c;
+      --dd-muted: #787675;
+      --dd-icon: #787675;
+      --dd-border: rgba(0,0,0,0.045);
+      --shadow-card: 0 8px 32px rgba(0,0,0,0.05);
+      --shadow-dd: 0 4px 16px rgba(0,0,0,0.04);
+    }
+
+    html.theme-black {
+      --bg: #000000;
+      --surface: #0f0f0f;
+      --border: #262626;
+      --text: #e8e8e8;
+      --text-muted: #a8a8a8;
+      --code-bg: #0a0a0a;
+      --primary: #818cf8;
+      --primary-text: #ffffff;
+      --glass-bg: rgba(18, 18, 18, 0.55);
+      --code-teal-text: #6bc4b8;
+      --code-teal-bg: #0a2e2a;
+      --dd-bg: rgba(18, 18, 18, 0.55);
+      --dd-active: rgba(255,255,255,0.055);
+      --dd-hover: rgba(255,255,255,0.04);
+      --dd-text: #e8e8e8;
+      --dd-muted: #a8a8a8;
+      --dd-icon: #a8a8a8;
+      --dd-border: rgba(255,255,255,0.055);
+      --shadow-card: 0 8px 32px rgba(0,0,0,0.25);
+      --shadow-dd: 0 4px 16px rgba(0,0,0,0.25);
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      transition: background-color 0.2s, color 0.2s;
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    }
+
+    .surface { background-color: var(--surface); }
+    .border-theme { border-color: var(--border); }
+    .text-theme { color: var(--text); }
+    .text-muted { color: var(--text-muted); }
+    .code-bg { background-color: var(--code-bg); }
+
+    .inline-code-teal {
+      color: var(--code-teal-text);
+      background-color: var(--code-teal-bg);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9em;
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+
+    .code-scroll::-webkit-scrollbar { height: 6px; }
+    .code-scroll::-webkit-scrollbar-track { background: transparent; }
+    .code-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+    .code-scroll::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+    /* Glassmorphism group */
+    .dd-group {
+      background: var(--dd-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--dd-border);
+      border-radius: 24px;
+      box-shadow: var(--shadow-dd);
+      padding: 8px;
+      transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .dd-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: background-color 0.15s;
+      user-select: none;
+    }
+
+    .dd-item:hover {
+      background-color: var(--dd-hover);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .dd-item.active {
+      background-color: var(--dd-active);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .dd-item-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background-color: var(--dd-active);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dd-icon);
+      font-size: 16px;
+      flex-shrink: 0;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .dd-item-title {
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 1.3;
+      color: var(--dd-text);
+      transition: color 0.2s;
+    }
+
+    .dd-item-desc {
+      font-size: 13px;
+      line-height: 1.4;
+      color: var(--dd-muted);
+      margin-top: 2px;
+      transition: color 0.2s;
+    }
+
+    .dd-chevron {
+      color: var(--dd-muted);
+      transition: transform 0.15s, color 0.2s;
+      margin-left: auto;
+      flex-shrink: 0;
+      margin-top: 8px;
+    }
+
+    .dd-item.active .dd-chevron {
+      transform: rotate(180deg);
+    }
+
+    .dd-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+    }
+
+    .dd-content.open {
+      transition: max-height 0.25s ease-in;
+    }
+
+    .dd-content-inner {
+      padding: 0 12px 12px 12px;
+    }
+
+    @media (min-width: 640px) {
+      .dd-content-inner {
+        padding: 0 12px 12px 60px;
+      }
+    }
+
+    /* Code Block */
+    .code-block {
+      background: var(--glass-bg);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-radius: 12px;
+      padding: 16px;
+      border: 1px solid var(--dd-border);
+      position: relative;
+      transition: background 0.2s, border-color 0.2s;
+      margin-bottom: 16px;
+    }
+
+    .code-block pre {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--text);
+      overflow-x: auto;
+      margin: 0;
+      transition: color 0.2s;
+    }
+
+    /* Desktop: copy inside code block */
+    @media (min-width: 640px) {
+      .code-block pre {
+        padding-right: 80px;
+      }
+      .code-block .copy-btn {
+        position: absolute;
+        right: 12px;
+        top: 12px;
+      }
+    }
+
+    /* Mobile: copy button next to code block */
+    @media (max-width: 639px) {
+      .code-block {
+        display: flex;
+        flex-direction: column;
+      }
+      .code-block .copy-btn {
+        align-self: flex-end;
+        margin-top: 8px;
+        position: static;
+      }
+    }
+
+    .code-block .copy-btn {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--dd-border);
+      color: var(--text);
+      border-radius: 8px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .code-block .copy-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* Toggle Button — icon only */
+    .theme-toggle {
+      position: fixed;
+      top: 16px;
+      right: 24px;
+      z-index: 50;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--dd-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      transition: background 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+      color: var(--text);
+      font-size: 16px;
+    }
+
+    .theme-toggle:hover {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+      transform: scale(1.08);
+    }
+
+    .theme-toggle i {
+      font-size: 16px;
+      transition: transform 0.3s;
+    }
+
+    .theme-toggle:active i {
+      transform: rotate(180deg);
+    }
+
+    /* Section card */
+    .section-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 24px;
+      border: 1px solid var(--dd-border);
+      box-shadow: var(--shadow-card);
+      padding: 32px;
+      transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    /* Notes / info blocks */
+    .note-block {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .note-block code, p code, li code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9em;
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+
+    /* Lists */
+    .content-list {
+      list-style: disc;
+      padding-left: 20px;
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .content-ol {
+      list-style: decimal;
+      padding-left: 20px;
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .sub-heading {
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--text);
+      margin-top: 16px;
+      margin-bottom: 8px;
+      transition: color 0.2s;
+    }
+
+    .sub-heading:first-child { margin-top: 0; }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    a:hover { text-decoration: underline; }
+
+    .page-title {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      transition: color 0.2s;
+    }
+
+    @media (min-width: 768px) {
+      .page-title { font-size: 48px; }
+      .section-card { padding: 32px; }
+    }
+
+    @media (max-width: 639px) {
+      .section-card { padding: 16px; border-radius: 16px; }
+      .dd-group { border-radius: 16px; padding: 6px; }
+      .dd-item { padding: 10px; gap: 10px; }
+      .dd-item-icon { width: 32px; height: 32px; border-radius: 8px; font-size: 14px; }
+      .dd-item-title { font-size: 14px; }
+      .dd-item-desc { font-size: 12px; }
+      .page-title { font-size: 28px; }
+      .section-title { font-size: 17px; }
+      .code-block { padding: 12px; }
+      .code-block pre { font-size: 12px; }
+      .theme-toggle { right: 12px; top: 12px; width: 36px; height: 36px; }
+      .theme-toggle i { font-size: 14px; }
+    }
+</style>
+</head>
+<body class="antialiased selection:bg-copilot-blue selection:text-white pb-20">
+
+<!-- Theme Toggle -->
+<button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Theme wechseln">
+  <i class="fa-solid fa-moon" id="theme-icon"></i>
+</button>
+
+<div class="max-w-4xl mx-auto px-6 pt-16">
+
+<!-- Header -->
+<header class="mb-10 rounded-3xl border p-8 md:p-10 text-center relative overflow-hidden" style="background:var(--glass-bg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-color:var(--dd-border);box-shadow:var(--shadow-card);">
+  <h1 class="page-title mb-4 relative z-10">Fedora 44 Workspace Setup</h1>
+  <p class="text-muted text-base font-medium mb-2 relative z-10"><em>This setup was meant to be set up on a Fedora 44 everything headless installation without a desktop environment.</em></p>
+</header>
+
+<div class="space-y-8 text-[15px] leading-relaxed">
+
+<!-- SECTION: Getting Ready -->
+<section class="section-card" id="getting-ready">
+  <h2 class="section-title">Getting Ready</h2>
+  <div class="dd-group">
+    <div>
+      <div class="dd-item" onclick="toggleAccordion(this)">
+        <div class="dd-item-icon"><i class="fa-solid fa-cube"></i></div>
+        <div class="flex-1">
+          <div class="dd-item-title">Install Dependencies</div>
+          <div class="dd-item-desc">Dependencies and necessary tools for the build</div>
+        </div>
+        <div class="dd-chevron"><i class="fa-solid fa-chevron-down" style="font-size:12px"></i></div>
+      </div>
+      <div class="dd-content">
+        <div class="dd-content-inner">
+          <p class="sub-heading">Dependencies:</p>
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in extra-cmake-modules qt5-qtbase-devel "kf5-*devel" qt6-qtsvg-devel kf6-kcmutils-devel kf6-kguiaddons-devel kf6-ki18n-devel kf6-kwindowsystem-devel kf6-kirigami-devel kdecoration-devel</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <p class="sub-heading">Necessary tools:</p>
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in vim kernel-devel kernel-headers</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="dd-item" onclick="toggleAccordion(this)">
+        <div class="dd-item-icon"><i class="fa-solid fa-bolt"></i></div>
+        <div class="flex-1">
+          <div class="dd-item-title">Make Downloads Faster</div>
+          <div class="dd-item-desc">Configure parallel downloads in dnf</div>
+        </div>
+        <div class="dd-chevron"><i class="fa-solid fa-chevron-down" style="font-size:12px"></i></div>
+      </div>
+      <div class="dd-content">
+        <div class="dd-content-inner">
+          <div class="code-block"><pre class="code-scroll"><code>sudo vim /etc/dnf/dnf.conf</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <p class="note-block" style="margin-bottom:12px">Add the following lines:</p>
+          <div class="code-block"><pre class="code-scroll"><code>max_parallel_downloads=20
+defaultyes=True</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="dd-item" onclick="toggleAccordion(this)">
+        <div class="dd-item-icon"><i class="fa-solid fa-clipboard-list"></i></div>
+        <div class="flex-1">
+          <div class="dd-item-title">Install Additional Packages</div>
+          <div class="dd-item-desc">Flatpak, Git, thermald, UFW and more</div>
+        </div>
+        <div class="dd-chevron"><i class="fa-solid fa-chevron-down" style="font-size:12px"></i></div>
+      </div>
+      <div class="dd-content">
+        <div class="dd-content-inner">
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in -y flatpak git wget thermald ufw fzf python3 python3-pip fastfetch bluez blueman bluez-libs gnome-tweaks gedit
+sudo systemctl enable --now bluetooth ufw
+sudo ufw default deny</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <p class="note-block" style="margin-bottom:12px">Only install <span class="inline-code-teal">gnome-tweaks</span> and <span class="inline-code-teal">gedit</span> if you plan to install the Gnome desktop.</p>
+          <p class="note-block" style="margin-bottom:12px">If you want to use KDE Plasma, use these tools instead:</p>
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in kate</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <p class="sub-heading">Install Multimedia libraries:</p>
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf group install multimedia</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="dd-item" onclick="toggleAccordion(this)">
+        <div class="dd-item-icon"><i class="fa-solid fa-microchip"></i></div>
+        <div class="flex-1">
+          <div class="dd-item-title">Install Nvidia Drivers</div>
+          <div class="dd-item-desc">Proprietary Nvidia driver installation and configuration</div>
+        </div>
+        <div class="dd-chevron"><i class="fa-solid fa-chevron-down" style="font-size:12px"></i></div>
+      </div>
+      <div class="dd-content">
+        <div class="dd-content-inner">
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in -y @base-x gcc make dkms acpid libglvnd-devel pkgconf xorg-x11-server-Xwayland libxcb egl-wayland akmod-nvidia xorg-x11-drv-nvidia-cuda --skip-broken --allowerasing
+sudo reboot now</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-block"><pre class="code-scroll"><code>sudo su</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <p class="note-block" style="margin-bottom:12px">Blacklist the nouveau driver:</p>
+          <div class="code-block"><pre class="code-scroll"><code>echo "blacklist nouveau" >> /etc/modprobe.d/blacklist.conf
+echo "blacklist nova_core" >> /etc/modprobe.d/blacklist.conf</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <p class="note-block" style="margin-bottom:12px">Set Nvidia kernel options:</p>
+          <div class="code-block"><pre class="code-scroll"><code>echo "options nvidia NVreg_PreserveVideoMemoryAllocations=1" >> /etc/modprobe.d/nvidia.conf
+echo "options nvidia-drm modeset=1 fbdev=0" >> /etc/modprobe.d/nvidia.conf</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: General Steps -->
+<section class="section-card" id="general-steps">
+  <h2 class="section-title">General Steps</h2>
+  <div class="dd-group">
+    <div>
+      <div class="dd-item" onclick="toggleAccordion(this)">
+        <div class="dd-item-icon"><i class="fa-solid fa-desktop"></i></div>
+        <div class="flex-1">
+          <div class="dd-item-title">Desktop Environment</div>
+          <div class="dd-item-desc">Choose between Gnome or KDE Plasma</div>
+        </div>
+        <div class="dd-chevron"><i class="fa-solid fa-chevron-down" style="font-size:12px"></i></div>
+      </div>
+      <div class="dd-content">
+        <div class="dd-content-inner">
+          <p class="sub-heading">Gnome:</p>
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in gnome-shell ptyxis gnome-control-center gnome-software gnome-menus gnome-shell-extensions gnome-system-monitor mutter gdm
+sudo systemctl enable gdm</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <p class="sub-heading">KDE Plasma:</p>
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in -y plasma-desktop konsole ark sddm dolphin
+sudo systemctl enable sddm</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <p class="note-block" style="margin-bottom:12px">After installing your desktop environment, you need to switch to the graphical interface as default:</p>
+          <div class="code-block"><pre class="code-scroll"><code>sudo systemctl set-default graphical.target</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <p class="note-block" style="margin-bottom:12px">After that, you can restart and log into your desktop:</p>
+          <div class="code-block"><pre class="code-scroll"><code>sudo reboot now</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <p class="note-block">Now open your terminal and continue with the setup.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="dd-item" onclick="toggleAccordion(this)">
+        <div class="dd-item-icon"><i class="fa-solid fa-box-archive"></i></div>
+        <div class="flex-1">
+          <div class="dd-item-title">Install the Terra Repo</div>
+          <div class="dd-item-desc">Add the Terra repository for additional packages</div>
+        </div>
+        <div class="dd-chevron"><i class="fa-solid fa-chevron-down" style="font-size:12px"></i></div>
+      </div>
+      <div class="dd-content">
+        <div class="dd-content-inner">
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="dd-item" onclick="toggleAccordion(this)">
+        <div class="dd-item-icon"><i class="fa-solid fa-circle-info"></i></div>
+        <div class="flex-1">
+          <div class="dd-item-title">Install CachyOS Kernel</div>
+          <div class="dd-item-desc">Optimized kernel for better performance</div>
+        </div>
+        <div class="dd-chevron"><i class="fa-solid fa-chevron-down" style="font-size:12px"></i></div>
+      </div>
+      <div class="dd-content">
+        <div class="dd-content-inner">
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf copr enable bieszczaders/kernel-cachyos
+sudo dnf in -y kernel-cachyos kernel-cachyos-devel-matched</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf copr enable bieszczaders/kernel-cachyos-addons
+sudo dnf in -y cachyos-settings --allowerasing</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-block"><pre class="code-scroll"><code>sudo dracut -f --regenerate-all
+sudo grub2-mkconfig -o /boot/grub2/grub.cfg</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="dd-item" onclick="toggleAccordion(this)">
+        <div class="dd-item-icon"><i class="fa-solid fa-gamepad"></i></div>
+        <div class="flex-1">
+          <div class="dd-item-title">Install Gaming Meta</div>
+          <div class="dd-item-desc">Steam, Lutris, Wine and gaming tools</div>
+        </div>
+        <div class="dd-chevron"><i class="fa-solid fa-chevron-down" style="font-size:12px"></i></div>
+      </div>
+      <div class="dd-content">
+        <div class="dd-content-inner">
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in -y steam lutris wine bottles gamescope mangohud libva-utils vulkan-tools mesa-dri-drivers mesa-vulkan-drivers gamemode libadwaita wine-dxvk dxvk-native goverlay --skip-broken</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf copr enable atim/heroic-games-launcher
+sudo dnf in -y heroic-games-launcher-bin</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: Gnome Setup -->
+<section class="section-card" id="gnome-setup">
+  <h2 class="section-title">Gnome Setup</h2>
+  <div class="dd-group">
+    <div>
+      <div class="dd-item" onclick="toggleAccordion(this)">
+        <div class="dd-item-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
+        <div class="flex-1">
+          <div class="dd-item-title">Extensions</div>
+          <div class="dd-item-desc">Gnome Shell extensions I use</div>
+        </div>
+        <div class="dd-chevron"><i class="fa-solid fa-chevron-down" style="font-size:12px"></i></div>
+      </div>
+      <div class="dd-content">
+        <div class="dd-content-inner">
+          <ul class="content-list">
+            <li>Blur My Shell</li><li>Just Perfection</li><li>Dash to Dock</li><li>Arc Menu (outdated)</li><li>Coverflow</li><li>Impatience</li><li>Gnome 4x UI Improvements</li><li>Caffeine</li><li>Open Bar</li><li>User Themes</li><li>System Monitor</li><li>Extension List</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="dd-item" onclick="toggleAccordion(this)">
+        <div class="dd-item-icon"><i class="fa-solid fa-sliders"></i></div>
+        <div class="flex-1">
+          <div class="dd-item-title">Extension Settings</div>
+          <div class="dd-item-desc">My custom configurations for each extension</div>
+        </div>
+        <div class="dd-chevron"><i class="fa-solid fa-chevron-down" style="font-size:12px"></i></div>
+      </div>
+      <div class="dd-content">
+        <div class="dd-content-inner">
+          <p class="sub-heading">Blur My Shell:</p>
+          <ul class="content-list" style="margin-bottom:16px"><li>Default Rounded Pipeline: Radius 20, Brightness: 100</li><li>Panel: Dynamic: 30, Sigma: Brightness: 1.00</li><li>Applications: opaque focused windows: off, blur in overview: off, enable all by default: on, disable manually: browser</li></ul>
+          <p class="sub-heading">Dash to Dock:</p>
+          <ul class="content-list" style="margin-bottom:16px"><li>Intelligent auto-hide: off</li><li>Size: 20</li><li>Menu moved to the left</li><li>Show drives and devices: off</li><li>Minimize appearance: on</li><li>Window counter indicators: dots</li></ul>
+          <p class="sub-heading">Just Perfection:</p>
+          <ul class="content-list" style="margin-bottom:16px"><li>Panel button spacing: 0px</li><li>Panel indicator spacing: 2px</li><li>Clock position: left + 1pt offset</li></ul>
+          <p class="sub-heading">Open Bar:</p>
+          <p class="note-block" style="margin-bottom:4px"><strong>Autotheming:</strong></p>
+          <ul class="content-list" style="margin-bottom:12px"><li>Auto Refresh theme on background change: on</li><li>Auto set bar margins and island bg alpha: off</li></ul>
+          <p class="note-block" style="margin-bottom:4px"><strong>Topbar properties:</strong></p>
+          <ul class="content-list" style="margin-bottom:12px"><li>Type: Islands</li><li>Apply in overview: on</li><li>Enable buttons proximity: off</li><li>Bar Margins: 0</li><li>Bar Height: 32</li></ul>
+          <p class="note-block" style="margin-bottom:4px"><strong>Dash/Dock:</strong></p>
+          <ul class="content-list" style="margin-bottom:12px"><li>Style: Use top bar colors</li><li>Disable Shadows</li><li>Dock Size: 20</li></ul>
+          <p class="note-block" style="margin-bottom:4px"><strong>Gnome Shell:</strong></p>
+          <ul class="content-list" style="margin-bottom:16px"><li>Enable everything</li></ul>
+          <p class="note-block">More custom configs: <a href="https://github.com/Nico-Shock/My-OpenBar-configs" target="_blank">My OpenBar Configs</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="dd-item" onclick="toggleAccordion(this)">
+        <div class="dd-item-icon"><i class="fa-solid fa-terminal"></i></div>
+        <div class="flex-1">
+          <div class="dd-item-title">Commands</div>
+          <div class="dd-item-desc">Theme installations and terminal setup</div>
+        </div>
+        <div class="dd-chevron"><i class="fa-solid fa-chevron-down" style="font-size:12px"></i></div>
+      </div>
+      <div class="dd-content">
+        <div class="dd-content-inner">
+          <p class="sub-heading">Extensions Manager Installation:</p>
+          <div class="code-block"><pre class="code-scroll"><code>flatpak install -y flathub com.mattjakeman.ExtensionManager</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <p class="sub-heading">MacOS Tahoe GTK Theme:</p>
+          <div class="code-block"><pre class="code-scroll"><code>git clone https://github.com/vinceliuice/MacTahoe-gtk-theme.git --depth 1
+cd MacTahoe-gtk-theme
+./install.sh -l
+cd ..
+sudo rm -r MacTahoe-gtk-theme</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <p class="sub-heading">Rosepine Theme:</p>
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in -y gtk-murrine-engine
+git clone https://github.com/Fausto-Korpsvart/Rose-Pine-GTK-Theme.git --depth 1
+cd Rose-Pine-GTK-Theme/themes
+./install.sh -c dark
+cd ..
+cd ..
+sudo rm -r Rose-Pine-GTK-Theme</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <p class="sub-heading">Tela Circle Icons:</p>
+          <div class="code-block"><pre class="code-scroll"><code>git clone --depth 1 https://github.com/vinceliuice/Tela-circle-icon-theme.git
+cd Tela-circle-icon-theme
+./install.sh -a
+cd ..
+sudo rm -rf Tela-circle-icon-theme</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <p class="sub-heading">Gnome Tweaks:</p>
+          <ul class="content-list" style="margin-bottom:16px"><li>Set the Shell theme to <span class="inline-code-teal">Adwaita</span></li><li>Set the other theme to the <span class="inline-code-teal">Rosepine-Dark</span> theme</li><li>Set every font to the Inter Semi Bold one</li></ul>
+          <p class="sub-heading">Terminal (Ptyxis):</p>
+          <div class="code-block"><pre class="code-scroll"><code>gsettings set 'org.gnome.Ptyxis.Profile:/org/gnome/Ptyxis/Profiles/'$PTYXIS_PROFILE'/' 'opacity' '0.70'</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <p class="note-block">Select DejaVu Sans Mono or Powerline font for the <span class="inline-code-teal">Ptyxis</span> terminal.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: KDE Plasma Setup -->
+<section class="section-card" id="kde-plasma-setup">
+  <h2 class="section-title">KDE Plasma Setup</h2>
+  <div class="dd-group">
+    <div>
+      <div class="dd-item" onclick="toggleAccordion(this)">
+        <div class="dd-item-icon"><i class="fa-solid fa-palette"></i></div>
+        <div class="flex-1">
+          <div class="dd-item-title">Install Themes</div>
+          <div class="dd-item-desc">Material You and Klassy themes</div>
+        </div>
+        <div class="dd-chevron"><i class="fa-solid fa-chevron-down" style="font-size:12px"></i></div>
+      </div>
+      <div class="dd-content">
+        <div class="dd-content-inner">
+          <p class="sub-heading">Material You Theme:</p>
+          <p class="note-block" style="margin-bottom:16px">Just follow the guide here: <a href="https://github.com/luisbocanegra/kde-material-you-colors" target="_blank">KDE Material You Colors</a></p>
+          <p class="sub-heading">Klassy Theme:</p>
+          <p class="note-block" style="margin-bottom:8px">Just follow the guide here: <a href="https://github.com/paulmcauley/klassy" target="_blank">Klassy</a></p>
+          <p class="note-block">In the Appearance settings, make sure to select the "Klassy" theme in the Window Decoration and the Application Style.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="dd-item" onclick="toggleAccordion(this)">
+        <div class="dd-item-icon"><i class="fa-solid fa-gear"></i></div>
+        <div class="flex-1">
+          <div class="dd-item-title">Klassy Settings</div>
+          <div class="dd-item-desc">Button, window and application style configuration</div>
+        </div>
+        <div class="dd-chevron"><i class="fa-solid fa-chevron-down" style="font-size:12px"></i></div>
+      </div>
+      <div class="dd-content">
+        <div class="dd-content-inner">
+          <p class="sub-heading">Buttons:</p>
+          <ul class="content-list" style="margin-bottom:16px"><li>Set the icons to Fluent</li><li>Set the icon size to 16</li><li>Select bold icons</li></ul>
+          <p class="sub-heading">Window:</p>
+          <ul class="content-list" style="margin-bottom:16px"><li>Set the corner radius to 6</li><li>Uncheck the box "Colourize with highlighted buttons colour"</li><li>Go to the Window Outline Style and change the outline to 2.15, the opacity of active windows to 80% and of inactive windows to 55%</li><li>Go to the title bar settings under title bar opacity and adjust the title bar opacity, the same way as the window rules opacity (or however you prefer). The opacity for active is 85% and for inactive 90% in my case.</li></ul>
+          <p class="sub-heading">Klassy Application Style &mdash; General:</p>
+          <ul class="content-list"><li>Uncheck every box with "Draw.." (so, uncheck all boxes)</li><li>Under the transparency you can lower the transparency for your context menu</li></ul>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="dd-item" onclick="toggleAccordion(this)">
+        <div class="dd-item-icon"><i class="fa-solid fa-terminal"></i></div>
+        <div class="flex-1">
+          <div class="dd-item-title">Konsole</div>
+          <div class="dd-item-desc">Font size and UI adjustments</div>
+        </div>
+        <div class="dd-chevron"><i class="fa-solid fa-chevron-down" style="font-size:12px"></i></div>
+      </div>
+      <div class="dd-content">
+        <div class="dd-content-inner">
+          <p class="sub-heading">Change Font Size:</p>
+          <ol class="content-ol" style="margin-bottom:16px"><li>Right-click the <span class="inline-code-teal">Konsole</span> window and select "Edit Current Profile," then go to Appearance</li><li>Here you can change the font, I like to change it to the DejaVu Sans Mono font (11px)</li></ol>
+          <p class="sub-heading">Editing the Top Bar:</p>
+          <ul class="content-list"><li>Right-click the top bar of the <span class="inline-code-teal">Konsole</span> and try to remove everything except the title bar</li></ul>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="dd-item" onclick="toggleAccordion(this)">
+        <div class="dd-item-icon"><i class="fa-solid fa-bars-progress"></i></div>
+        <div class="flex-1">
+          <div class="dd-item-title">Edit Taskbar / Panel</div>
+          <div class="dd-item-desc">Panel size and effects configuration</div>
+        </div>
+        <div class="dd-chevron"><i class="fa-solid fa-chevron-down" style="font-size:12px"></i></div>
+      </div>
+      <div class="dd-content">
+        <div class="dd-content-inner">
+          <ol class="content-ol"><li>Right-click on the Panel and go to edit mode</li><li>Disable the floating effect by changing the option to "Disabled." And enable the blur effect.</li><li>Change the taskbar size to 28.</li></ol>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="dd-item" onclick="toggleAccordion(this)">
+        <div class="dd-item-icon"><i class="fa-solid fa-eye"></i></div>
+        <div class="flex-1">
+          <div class="dd-item-title">Transparency and Blur</div>
+          <div class="dd-item-desc">Window transparency and blur effects setup</div>
+        </div>
+        <div class="dd-chevron"><i class="fa-solid fa-chevron-down" style="font-size:12px"></i></div>
+      </div>
+      <div class="dd-content">
+        <div class="dd-content-inner">
+          <p class="sub-heading">Make windows transparent:</p>
+          <ul class="content-list" style="margin-bottom:12px"><li>Go to System Settings &rarr; Window Management &rarr; Window Rules</li><li>Add a new rule</li><li>Under "Add property" you can add 'active opacity' and 'inactive opacity', here you can set the value however you like. I set active to 85% and inactive to 90%.</li></ul>
+          <p class="sub-heading">Make every window transparent:</p>
+          <ul class="content-list" style="margin-bottom:12px"><li>In the new window rule set the window class to unimportant, and make sure you have set your opacity values.</li></ul>
+          <p class="sub-heading">Make only specific windows transparent:</p>
+          <ul class="content-list" style="margin-bottom:12px"><li>In the new window rule set your opacity values (and make sure to not change the window class)</li><li>Then click the "Detect Window Properties" button and click on the window you want to make transparent.</li><li>Then add every value that will pop up for the specific window that you picked.</li></ul>
+          <p class="sub-heading">Blur everything:</p>
+          <ul class="content-list" style="margin-bottom:12px"><li>Install <a href="https://github.com/xarblu/kwin-effects-better-blur-dx" target="_blank">Better Blur DX</a></li><li>Follow the instructions in the repo for installation.</li><li>Then go to System Settings &rarr; Window Management &rarr; Window Effects</li></ul>
+          <p class="sub-heading">Better Blur Settings:</p>
+          <ul class="content-list"><li>Go to the settings in the window effects screen for Better Blur DX</li><li>Under "Force blur settings" select the option "blur everything except matching" and then check all the checkboxes (this will enable the blur properly for some reason).</li><li>Under "General settings" set the blur strength to level 7 and the blur noise to level 2 or change it to whatever you prefer.</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: General Setup -->
+<section class="section-card" id="general-setup">
+  <h2 class="section-title">General Setup</h2>
+  <div class="dd-group">
+    <div>
+      <div class="dd-item" onclick="toggleAccordion(this)">
+        <div class="dd-item-icon"><i class="fa-solid fa-terminal"></i></div>
+        <div class="flex-1">
+          <div class="dd-item-title">Zsh</div>
+          <div class="dd-item-desc">Powerlevel10k and shell configuration</div>
+        </div>
+        <div class="dd-chevron"><i class="fa-solid fa-chevron-down" style="font-size:12px"></i></div>
+      </div>
+      <div class="dd-content">
+        <div class="dd-content-inner">
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in -y zsh</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-block"><pre class="code-scroll"><code>git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-block"><pre class="code-scroll"><code>chsh -s $(which zsh)</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <p class="note-block">In KDE Plasma with <span class="inline-code-teal">Konsole</span> you need to right-click in the terminal window, then edit current profile and select the starting shell from /etc/bash to /etc/zsh.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="dd-item" onclick="toggleAccordion(this)">
+        <div class="dd-item-icon"><i class="fa-solid fa-font"></i></div>
+        <div class="flex-1">
+          <div class="dd-item-title">Fonts</div>
+          <div class="dd-item-desc">System fonts and Nerd Fonts</div>
+        </div>
+        <div class="dd-chevron"><i class="fa-solid fa-chevron-down" style="font-size:12px"></i></div>
+      </div>
+      <div class="dd-content">
+        <div class="dd-content-inner">
+          <p class="sub-heading">System Fonts</p>
+          <p class="note-block" style="margin-bottom:8px"><a href="https://fonts.google.com/specimen/Lora" target="_blank">Lora</a> &mdash; I use the medium one</p>
+          <p class="note-block" style="margin-bottom:16px"><a href="https://fonts.google.com/specimen/Inter" target="_blank">Inter</a> &mdash; I use the bold one. This is my secondary font, I use the Lora font mainly.</p>
+          <p class="sub-heading">Additional Fonts</p>
+          <div class="code-block"><pre class="code-scroll"><code>git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git
+cd nerd-fonts
+./install.sh
+cd ..
+sudo rm -rf nerd-fonts</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <p class="note-block" style="margin-bottom:16px">This font will fix every icon, unicode and symbols.</p>
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in -y dejavu-sans-mono-fonts powerline-fonts</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <p class="note-block" style="margin-bottom:16px">The font I use for <span class="inline-code-teal">Ptyxis</span> and <span class="inline-code-teal">Konsole</span>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="dd-item" onclick="toggleAccordion(this)">
+        <div class="dd-item-icon"><i class="fa-solid fa-icons"></i></div>
+        <div class="flex-1">
+          <div class="dd-item-title">Icons &amp; Cursor</div>
+          <div class="dd-item-desc">Icon themes and mouse cursor I use</div>
+        </div>
+        <div class="dd-chevron"><i class="fa-solid fa-chevron-down" style="font-size:12px"></i></div>
+      </div>
+      <div class="dd-content">
+        <div class="dd-content-inner">
+          <p class="sub-heading">Icons</p>
+          <p class="note-block" style="margin-bottom:8px">My primary icons are the <strong>Tela Circle Icons</strong>: go to the icon settings in Appearance in the KDE Plasma settings and click on "Get New", here you can search for every icon set.</p>
+          <p class="note-block" style="margin-bottom:4px">Secondarily I like these icon sets:</p>
+          <ul class="content-list" style="margin-bottom:16px"><li>Papirus</li><li>win11-purple-dark</li><li>BeautySolar</li></ul>
+          <p class="sub-heading">Mouse Cursor</p>
+          <p class="note-block" style="margin-bottom:8px">Mainly I use the <strong>MacOS Tahoe</strong> one, you need to manually install these: <a href="https://store.kde.org/p/2300466" target="_blank">MacOS Tahoe Cursor</a></p>
+          <ol class="content-ol" style="margin-bottom:12px"><li>In your home directory create a new folder <span class="inline-code-teal">.icons</span></li><li>Put the <span class="inline-code-teal">MacOS-Tahoe-Cursor</span> in the <span class="inline-code-teal">.icons</span> folder</li><li>Now in the appearance settings you can change your mouse cursor to this one</li></ol>
+          <p class="note-block" style="margin-bottom:4px">Secondarily I also like other cursors:</p>
+          <ul class="content-list"><li>Babita cursor</li><li>Breeze light cursor</li><li>Modern winxp cursor</li></ul>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="dd-item" onclick="toggleAccordion(this)">
+        <div class="dd-item-icon"><i class="fa-solid fa-globe"></i></div>
+        <div class="flex-1">
+          <div class="dd-item-title">Browser Recommendations</div>
+          <div class="dd-item-desc">Helium and Brave browsers</div>
+        </div>
+        <div class="dd-chevron"><i class="fa-solid fa-chevron-down" style="font-size:12px"></i></div>
+      </div>
+      <div class="dd-content">
+        <div class="dd-content-inner">
+          <p class="sub-heading">Helium:</p>
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in helium-browser-bin</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <p class="sub-heading">Brave:</p>
+          <div class="code-block"><pre class="code-scroll"><code>curl -fsS https://dl.brave.com/install.sh | sh</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="dd-item" onclick="toggleAccordion(this)">
+        <div class="dd-item-icon"><i class="fa-solid fa-bolt"></i></div>
+        <div class="flex-1">
+          <div class="dd-item-title">Fastfetch</div>
+          <div class="dd-item-desc">System information tool setup</div>
+        </div>
+        <div class="dd-chevron"><i class="fa-solid fa-chevron-down" style="font-size:12px"></i></div>
+      </div>
+      <div class="dd-content">
+        <div class="dd-content-inner">
+          <p class="note-block" style="margin-bottom:12px">I saved <a href="https://github.com/Nico-Shock/Custom-Hyprland-Configs/blob/main/Fastfetch" target="_blank">this</a> config for it. To install you just need to create a config directory:</p>
+          <div class="code-block"><pre class="code-scroll"><code>mkdir -p .config/fastfetch</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <p class="note-block" style="margin-bottom:12px">After that you need a config file:</p>
+          <div class="code-block"><pre class="code-scroll"><code>kate .config/fastfetch/config.jsonc</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <p class="note-block" style="margin-bottom:12px">or</p>
+          <div class="code-block"><pre class="code-scroll"><code>gedit .config/fastfetch/config.jsonc</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <p class="note-block">Just copy paste the content in that file and you're done.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="dd-item" onclick="toggleAccordion(this)">
+        <div class="dd-item-icon"><i class="fa-solid fa-lock"></i></div>
+        <div class="flex-1">
+          <div class="dd-item-title">SDDM</div>
+          <div class="dd-item-desc">Login manager configuration</div>
+        </div>
+        <div class="dd-chevron"><i class="fa-solid fa-chevron-down" style="font-size:12px"></i></div>
+      </div>
+      <div class="dd-content">
+        <div class="dd-content-inner">
+          <p class="note-block">SDDM configuration coming soon.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer class="mt-16 pt-8 pb-12 text-center text-sm text-muted" style="border-top:1px solid var(--border);">
+  <p>&copy; 2026 Fedora 44 Workspace Setup by Nico-Shock</p>
+</footer>
+
+</div>
+
+<script>
+    // Theme Toggle
+    let currentTheme = localStorage.getItem('fedora-theme') || 'light';
+
+    function applyTheme(theme) {
+      document.documentElement.className = theme === 'black' ? 'theme-black' : 'theme-light';
+      const icon = document.getElementById('theme-icon');
+      if (theme === 'black') {
+        icon.className = 'fa-solid fa-sun';
+      } else {
+        icon.className = 'fa-solid fa-moon';
+      }
+      currentTheme = theme;
+      localStorage.setItem('fedora-theme', theme);
+    }
+
+    function toggleTheme() {
+      applyTheme(currentTheme === 'black' ? 'light' : 'black');
+    }
+
+    applyTheme(currentTheme);
+
+    // Accordion Toggle
+    function toggleAccordion(item) {
+      const content = item.nextElementSibling;
+      const isOpen = item.classList.contains('active');
+
+      if (isOpen) {
+        item.classList.remove('active');
+        content.style.maxHeight = '0px';
+        content.classList.remove('open');
+      } else {
+        item.classList.add('active');
+        content.classList.add('open');
+        content.style.maxHeight = content.scrollHeight + 'px';
+      }
+    }
+
+    // Re-calculate open accordion heights on theme change
+    const themeObserver = new MutationObserver(() => {
+      document.querySelectorAll('.dd-content.open').forEach(el => {
+        el.style.maxHeight = el.scrollHeight + 'px';
+      });
+    });
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
+    // Copy Code
+    function copyCode(btn) {
+      const pre = btn.previousElementSibling;
+      const codeText = pre.innerText;
+      navigator.clipboard.writeText(codeText).then(() => {
+        btn.textContent = 'Copied!';
+        btn.style.color = 'var(--primary)';
+        btn.style.borderColor = 'var(--primary)';
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.style.color = '';
+          btn.style.borderColor = '';
+        }, 2000);
+      });
+    }
+</script>
+</body>
+</html>
