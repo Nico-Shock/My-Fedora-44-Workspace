@@ -10,7 +10,7 @@
 
 Dependencies:
 ```
-sudo dnf in extra-cmake-modules qt5-qtbase-devel "kf5-*devel" qt6-qtsvg-devel kf6-kcmutils-devel kf6-kguiaddons-devel kf6-ki18n-devel kf6-kwindowsystem-devel kf6-kirigami-devel kdecoration-devel
+sudo dnf in extra-cmake-modules qt5-qtbase-devel "kf5-*devel" "kf6-*devel" kdecoration-devel
 ```
 
 Necessary tools:
@@ -25,7 +25,6 @@ sudo vim /etc/dnf/dnf.conf
 Add the following lines:
 ```
 max_parallel_downloads=20
-defaultyes=True
 ```
 
 ### Install additional packages
@@ -58,13 +57,13 @@ sudo su
 ```
 
 ```
-echo "blacklist nouveau" >> /etc/modprobe.d/blacklist.conf
-echo "blacklist nova_core" >> /etc/modprobe.d/blacklist.conf
+echo "blacklist nouveau" >> /modprobe.d/blacklist.conf
+echo "blacklist nova_core" >> /modprobe.d/blacklist.conf
 ```
 
 ```
-echo "options nvidia NVreg_PreserveVideoMemoryAllocations=1" >> /etc/modprobe.d/nvidia.conf
-echo "options nvidia-drm modeset=1 fbdev=0" >> /etc/modprobe.d/nvidia.conf
+echo "options nvidia NVreg_PreserveVideoMemoryAllocations=1" >> /modprobe.d/nvidia.conf
+echo "options nvidia-drm modeset=1 fbdev=0" >> /modprobe.d/nvidia.conf
 ```
 
 # General Steps
@@ -257,6 +256,7 @@ gsettings set 'org.gnome.Ptyxis.Profile:/org/gnome/Ptyxis/Profiles/'$PTYXIS_PROF
 - Set the icons to Fluent
 - Set the icon size to 16
 - Select bold icons
+- Change the shape to full-height rounded rectangle
 
 **Window:**
 
@@ -333,7 +333,7 @@ echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 chsh -s $(which zsh)
 ```
 
-- In KDE Plasma with `Konsole` you need to right-click in the terminal window, then edit current profile and select the starting shell from /etc/bash to /etc/zsh)
+- In KDE Plasma with `Konsole` you need to right-click in the terminal window, then edit current profile and select the starting shell from /bin/bash to /bin/zsh)
 
 ## Fonts
 
