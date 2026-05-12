@@ -366,12 +366,24 @@
 
     .sub-heading:first-child { margin-top: 0; }
 
-    a {
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 500;
+    a, .note-block a, .content-list a, .content-ol a, p a, li a {
+      color: #1a3a6b !important;
+      text-decoration: underline;
+      text-decoration-color: rgba(26, 58, 107, 0.3);
+      text-underline-offset: 3px;
+      font-weight: 600;
     }
-    a:hover { text-decoration: underline; }
+    a:hover, .note-block a:hover, .content-list a:hover {
+      text-decoration-color: #1a3a6b !important;
+    }
+
+    html.theme-black a, html.theme-black .note-block a, html.theme-black .content-list a, html.theme-black .content-ol a, html.theme-black p a, html.theme-black li a {
+      color: #7ba4e0 !important;
+      text-decoration-color: rgba(123, 164, 224, 0.35) !important;
+    }
+    html.theme-black a:hover, html.theme-black .note-block a:hover, html.theme-black .content-list a:hover {
+      text-decoration-color: #7ba4e0 !important;
+    }
 
     .page-title {
       font-size: 36px;
@@ -654,7 +666,7 @@ sudo dnf in -y heroic-games-launcher-bin</code></pre><button class="copy-btn" on
         <div class="dd-item-icon"><i class="fa-solid fa-terminal"></i></div>
         <div class="flex-1">
           <div class="dd-item-title">Theme and Terminal Setup</div>
-          <div class="dd-item-desc">GTK themes, icons, tweaks and terminal configuration</div>
+          <div class="dd-item-desc">GTK themes, and terminal configuration</div>
         </div>
         <div class="dd-chevron"><i class="fa-solid fa-chevron-down" style="font-size:12px"></i></div>
       </div>
@@ -676,12 +688,6 @@ cd Rose-Pine-GTK-Theme/themes
 cd ..
 cd ..
 sudo rm -r Rose-Pine-GTK-Theme</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-          <p class="sub-heading">Tela Circle Icons:</p>
-          <div class="code-block"><pre class="code-scroll"><code>git clone --depth 1 https://github.com/vinceliuice/Tela-circle-icon-theme.git
-cd Tela-circle-icon-theme
-./install.sh -a
-cd ..
-sudo rm -rf Tela-circle-icon-theme</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
           <p class="sub-heading">Gnome Tweaks:</p>
           <ul class="content-list" style="margin-bottom:16px"><li>Set the Shell theme to <span class="inline-code-teal">Adwaita</span></li><li>Set the other theme to the <span class="inline-code-teal">Rosepine-Dark</span> theme</li><li>Set every font to the Inter Semi Bold one</li></ul>
           <p class="sub-heading">Terminal (Ptyxis):</p>
