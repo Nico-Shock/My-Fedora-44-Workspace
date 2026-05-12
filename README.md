@@ -44,7 +44,7 @@ sudo dnf in kate
 
 Install Multimedia libraries:
 ```
-sudo dnf group multimedia
+sudo dnf group install multimedia
 ```
 
 ### Install Nvidia Drivers
@@ -79,8 +79,8 @@ sudo systemctl enable gdm
 
 KDE Plasma:
 ```
-sudo dnf -y plasma-desktop konsole ark sddm dolphin
-systemctl enable sddm
+sudo dnf in -y plasma-desktop konsole ark sddm dolphin
+sudo systemctl enable sddm
 ```
 
 - After installing your desktop environment, you need to switch to the graphical interface as default:
@@ -98,7 +98,7 @@ sudo reboot now
 ### Install the Terra Repo
 
 ```
-dnf in --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
+sudo dnf in --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
 ```
 
 ### Installing the CachyOS Kernel
