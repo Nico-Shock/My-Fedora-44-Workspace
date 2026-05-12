@@ -102,7 +102,6 @@
     .code-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
     .code-scroll::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
 
-    /* Glassmorphism group */
     .dd-group {
       background: var(--dd-bg);
       backdrop-filter: blur(20px);
@@ -199,7 +198,6 @@
       }
     }
 
-    /* Code Block */
     .code-block {
       background: var(--glass-bg);
       backdrop-filter: blur(24px);
@@ -221,7 +219,6 @@
       transition: color 0.2s;
     }
 
-    /* Desktop: copy inside code block */
     @media (min-width: 640px) {
       .code-block pre {
         padding-right: 80px;
@@ -233,7 +230,6 @@
       }
     }
 
-    /* Mobile: copy button next to code block */
     @media (max-width: 639px) {
       .code-block {
         display: flex;
@@ -265,7 +261,6 @@
       color: var(--primary);
     }
 
-    /* Toggle Button — icon only */
     .theme-toggle {
       position: fixed;
       top: 16px;
@@ -302,7 +297,6 @@
       transform: rotate(180deg);
     }
 
-    /* Section card */
     .section-card {
       background: var(--glass-bg);
       backdrop-filter: blur(20px);
@@ -324,7 +318,6 @@
       transition: color 0.2s, border-color 0.2s;
     }
 
-    /* Notes / info blocks */
     .note-block {
       font-size: 14px;
       color: var(--text-muted);
@@ -338,7 +331,6 @@
       border-radius: 4px;
     }
 
-    /* Lists */
     .content-list {
       list-style: disc;
       padding-left: 20px;
@@ -416,14 +408,12 @@
 </head>
 <body class="antialiased selection:bg-copilot-blue selection:text-white pb-20">
 
-<!-- Theme Toggle -->
 <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Theme wechseln">
   <i class="fa-solid fa-moon" id="theme-icon"></i>
 </button>
 
 <div class="max-w-4xl mx-auto px-6 pt-16">
 
-<!-- Header -->
 <header class="mb-10 rounded-3xl border p-8 md:p-10 text-center relative overflow-hidden" style="background:var(--glass-bg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-color:var(--dd-border);box-shadow:var(--shadow-card);">
   <h1 class="page-title mb-4 relative z-10">Fedora 44 Workspace Setup</h1>
   <p class="text-muted text-base font-medium mb-2 relative z-10"><em>This setup was meant to be set up on a Fedora 44 everything headless installation without a desktop environment.</em></p>
@@ -431,7 +421,6 @@
 
 <div class="space-y-8 text-[15px] leading-relaxed">
 
-<!-- SECTION: Getting Ready -->
 <section class="section-card" id="getting-ready">
   <h2 class="section-title">Getting Ready</h2>
   <div class="dd-group">
@@ -521,7 +510,6 @@ echo "options nvidia-drm modeset=1 fbdev=0" >> /modprobe.d/nvidia.conf</code></p
   </div>
 </section>
 
-<!-- SECTION: General Steps -->
 <section class="section-card" id="general-steps">
   <h2 class="section-title">General Steps</h2>
   <div class="dd-group">
@@ -608,7 +596,6 @@ sudo dnf in -y heroic-games-launcher-bin</code></pre><button class="copy-btn" on
   </div>
 </section>
 
-<!-- SECTION: Gnome Setup -->
 <section class="section-card" id="gnome-setup">
   <h2 class="section-title">Gnome Setup</h2>
   <div class="dd-group">
@@ -699,7 +686,6 @@ sudo rm -r Rose-Pine-GTK-Theme</code></pre><button class="copy-btn" onclick="cop
   </div>
 </section>
 
-<!-- SECTION: KDE Plasma Setup -->
 <section class="section-card" id="kde-plasma-setup">
   <h2 class="section-title">KDE Plasma Setup</h2>
   <div class="dd-group">
@@ -807,7 +793,6 @@ sudo rm -r Rose-Pine-GTK-Theme</code></pre><button class="copy-btn" onclick="cop
   </div>
 </section>
 
-<!-- SECTION: General Setup -->
 <section class="section-card" id="general-setup">
   <h2 class="section-title">General Setup</h2>
   <div class="dd-group">
@@ -950,7 +935,6 @@ sudo rm -rf nerd-fonts</code></pre><button class="copy-btn" onclick="copyCode(th
 </div>
 
 <script>
-    // Theme Toggle
     let currentTheme = localStorage.getItem('fedora-theme') || 'light';
 
     function applyTheme(theme) {
@@ -971,7 +955,6 @@ sudo rm -rf nerd-fonts</code></pre><button class="copy-btn" onclick="copyCode(th
 
     applyTheme(currentTheme);
 
-    // Accordion Toggle
     function toggleAccordion(item) {
       const content = item.nextElementSibling;
       const isOpen = item.classList.contains('active');
@@ -987,7 +970,6 @@ sudo rm -rf nerd-fonts</code></pre><button class="copy-btn" onclick="copyCode(th
       }
     }
 
-    // Re-calculate open accordion heights on theme change
     const themeObserver = new MutationObserver(() => {
       document.querySelectorAll('.dd-content.open').forEach(el => {
         el.style.maxHeight = el.scrollHeight + 'px';
@@ -995,7 +977,6 @@ sudo rm -rf nerd-fonts</code></pre><button class="copy-btn" onclick="copyCode(th
     });
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
-    // Copy Code
     function copyCode(btn) {
       const pre = btn.previousElementSibling;
       const codeText = pre.innerText;
