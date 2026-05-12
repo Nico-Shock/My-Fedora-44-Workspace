@@ -435,7 +435,7 @@
       <div class="dd-content">
         <div class="dd-content-inner">
           <p class="sub-heading">Dependencies:</p>
-          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in extra-cmake-modules qt5-qtbase-devel "kf5-*devel" qt6-qtsvg-devel kf6-kcmutils-devel kf6-kguiaddons-devel kf6-ki18n-devel kf6-kwindowsystem-devel kf6-kirigami-devel kdecoration-devel</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in extra-cmake-modules qt5-qtbase-devel "kf5-*devel" "kf6-*devel" kdecoration-devel</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
           <p class="sub-heading">Necessary tools:</p>
           <div class="code-block"><pre class="code-scroll"><code>sudo dnf in vim kernel-devel kernel-headers</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
         </div>
@@ -446,7 +446,7 @@
       <div class="dd-item" onclick="toggleAccordion(this)">
         <div class="dd-item-icon"><i class="fa-solid fa-bolt"></i></div>
         <div class="flex-1">
-          <div class="dd-item-title">Make Downloads Faster</div>
+          <div class="dd-item-title">Make Download Faster</div>
           <div class="dd-item-desc">Configure parallel downloads in dnf</div>
         </div>
         <div class="dd-chevron"><i class="fa-solid fa-chevron-down" style="font-size:12px"></i></div>
@@ -455,8 +455,7 @@
         <div class="dd-content-inner">
           <div class="code-block"><pre class="code-scroll"><code>sudo vim /etc/dnf/dnf.conf</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
           <p class="note-block" style="margin-bottom:12px">Add the following lines:</p>
-          <div class="code-block"><pre class="code-scroll"><code>max_parallel_downloads=20
-defaultyes=True</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-block"><pre class="code-scroll"><code>max_parallel_downloads=20</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
         </div>
       </div>
     </div>
@@ -473,7 +472,7 @@ defaultyes=True</code></pre><button class="copy-btn" onclick="copyCode(this)">Co
       <div class="dd-content">
         <div class="dd-content-inner">
           <div class="code-block"><pre class="code-scroll"><code>sudo dnf in -y flatpak git wget thermald ufw fzf python3 python3-pip fastfetch bluez blueman bluez-libs gnome-tweaks gedit
-sudo systemctl enable --now bluetooth ufw
+sudo systemctl enable --now ufw bluetooth
 sudo ufw default deny</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
           <p class="note-block" style="margin-bottom:12px">Only install <span class="inline-code-teal">gnome-tweaks</span> and <span class="inline-code-teal">gedit</span> if you plan to install the Gnome desktop.</p>
           <p class="note-block" style="margin-bottom:12px">If you want to use KDE Plasma, use these tools instead:</p>
@@ -499,11 +498,11 @@ sudo ufw default deny</code></pre><button class="copy-btn" onclick="copyCode(thi
 sudo reboot now</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
           <div class="code-block"><pre class="code-scroll"><code>sudo su</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
           <p class="note-block" style="margin-bottom:12px">Blacklist the nouveau driver:</p>
-          <div class="code-block"><pre class="code-scroll"><code>echo "blacklist nouveau" >> /etc/modprobe.d/blacklist.conf
-echo "blacklist nova_core" >> /etc/modprobe.d/blacklist.conf</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-block"><pre class="code-scroll"><code>echo "blacklist nouveau" >> /modprobe.d/blacklist.conf
+echo "blacklist nova_core" >> /modprobe.d/blacklist.conf</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
           <p class="note-block" style="margin-bottom:12px">Set Nvidia kernel options:</p>
-          <div class="code-block"><pre class="code-scroll"><code>echo "options nvidia NVreg_PreserveVideoMemoryAllocations=1" >> /etc/modprobe.d/nvidia.conf
-echo "options nvidia-drm modeset=1 fbdev=0" >> /etc/modprobe.d/nvidia.conf</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-block"><pre class="code-scroll"><code>echo "options nvidia NVreg_PreserveVideoMemoryAllocations=1" >> /modprobe.d/nvidia.conf
+echo "options nvidia-drm modeset=1 fbdev=0" >> /modprobe.d/nvidia.conf</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
         </div>
       </div>
     </div>
@@ -560,7 +559,7 @@ sudo systemctl enable sddm</code></pre><button class="copy-btn" onclick="copyCod
       <div class="dd-item" onclick="toggleAccordion(this)">
         <div class="dd-item-icon"><i class="fa-solid fa-circle-info"></i></div>
         <div class="flex-1">
-          <div class="dd-item-title">Install CachyOS Kernel</div>
+          <div class="dd-item-title">Installing the CachyOS Kernel</div>
           <div class="dd-item-desc">Optimized kernel for better performance</div>
         </div>
         <div class="dd-chevron"><i class="fa-solid fa-chevron-down" style="font-size:12px"></i></div>
@@ -581,7 +580,7 @@ sudo grub2-mkconfig -o /boot/grub2/grub.cfg</code></pre><button class="copy-btn"
       <div class="dd-item" onclick="toggleAccordion(this)">
         <div class="dd-item-icon"><i class="fa-solid fa-gamepad"></i></div>
         <div class="flex-1">
-          <div class="dd-item-title">Install Gaming Meta</div>
+          <div class="dd-item-title">Installing Gaming Meta</div>
           <div class="dd-item-desc">Steam, Heroic, Lutris and gaming tools</div>
         </div>
         <div class="dd-chevron"><i class="fa-solid fa-chevron-down" style="font-size:12px"></i></div>
@@ -640,12 +639,12 @@ sudo dnf in -y heroic-games-launcher-bin</code></pre><button class="copy-btn" on
           <p class="note-block" style="margin-bottom:4px"><strong>Autotheming:</strong></p>
           <ul class="content-list" style="margin-bottom:12px"><li>Auto Refresh theme on background change: on</li><li>Auto set bar margins and island bg alpha: off</li></ul>
           <p class="note-block" style="margin-bottom:4px"><strong>Topbar properties:</strong></p>
-          <ul class="content-list" style="margin-bottom:12px"><li>Type: Islands</li><li>Apply in overview: on</li><li>Enable buttons proximity: off</li><li>Bar Margins: 0</li><li>Bar Height: 32</li></ul>
+          <ul class="content-list" style="margin-bottom:12px"><li>Type: Islands</li><li>Apply in overview: on</li><li>enable buttons proximity: off</li><li>Bar Margins: 0</li><li>Bar Height: 32</li></ul>
           <p class="note-block" style="margin-bottom:4px"><strong>Dash/Dock:</strong></p>
           <ul class="content-list" style="margin-bottom:12px"><li>Style: Use top bar colors</li><li>Disable Shadows</li><li>Dock Size: 20</li></ul>
           <p class="note-block" style="margin-bottom:4px"><strong>Gnome Shell:</strong></p>
-          <ul class="content-list" style="margin-bottom:16px"><li>Enable everything</li></ul>
-          <p class="note-block">More custom configs: <a href="https://github.com/Nico-Shock/My-OpenBar-configs" target="_blank">My OpenBar Configs</a></p>
+          <ul class="content-list" style="margin-bottom:16px"><li>enable everything</li></ul>
+          <p class="note-block">Here are more of my custom configs: <a href="https://github.com/Nico-Shock/My-OpenBar-configs" target="_blank">My OpenBar Configs</a></p>
         </div>
       </div>
     </div>
@@ -730,11 +729,12 @@ sudo rm -rf Tela-circle-icon-theme</code></pre><button class="copy-btn" onclick=
       <div class="dd-content">
         <div class="dd-content-inner">
           <p class="sub-heading">Buttons:</p>
-          <ul class="content-list" style="margin-bottom:16px"><li>Set the icons to Fluent</li><li>Set the icon size to 16</li><li>Select bold icons</li></ul>
+          <ul class="content-list" style="margin-bottom:16px"><li>Set the icons to Fluent</li><li>Set the icon size to 16</li><li>Select bold icons</li><li>Change the shape to full-height rounded rectangle</li></ul>
           <p class="sub-heading">Window:</p>
           <ul class="content-list" style="margin-bottom:16px"><li>Set the corner radius to 6</li><li>Uncheck the box "Colourize with highlighted buttons colour"</li><li>Go to the Window Outline Style and change the outline to 2.15, the opacity of active windows to 80% and of inactive windows to 55%</li><li>Go to the title bar settings under title bar opacity and adjust the title bar opacity, the same way as the window rules opacity (or however you prefer). The opacity for active is 85% and for inactive 90% in my case.</li></ul>
-          <p class="sub-heading">Klassy Application Style &mdash; General:</p>
-          <ul class="content-list"><li>Uncheck every box with "Draw.." (so, uncheck all boxes)</li><li>Under the transparency you can lower the transparency for your context menu</li></ul>
+          <p class="sub-heading">Klassy Application Style:</p>
+          <p class="note-block" style="margin-bottom:4px"><strong>General:</strong></p>
+          <ul class="content-list"><li>Uncheck every box with "Draw.." (so, uncheck all boxes)</li><li>Under the transparency you can lower the transparency for your context menu.</li></ul>
         </div>
       </div>
     </div>
@@ -762,7 +762,7 @@ sudo rm -rf Tela-circle-icon-theme</code></pre><button class="copy-btn" onclick=
       <div class="dd-item" onclick="toggleAccordion(this)">
         <div class="dd-item-icon"><i class="fa-solid fa-bars-progress"></i></div>
         <div class="flex-1">
-          <div class="dd-item-title">Edit Taskbar / Panel</div>
+          <div class="dd-item-title">Editing the Taskbar/Panel</div>
           <div class="dd-item-desc">Panel size and effects configuration</div>
         </div>
         <div class="dd-chevron"><i class="fa-solid fa-chevron-down" style="font-size:12px"></i></div>
@@ -820,7 +820,7 @@ sudo rm -rf Tela-circle-icon-theme</code></pre><button class="copy-btn" onclick=
           <div class="code-block"><pre class="code-scroll"><code>git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
           <div class="code-block"><pre class="code-scroll"><code>chsh -s $(which zsh)</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-          <p class="note-block">In KDE Plasma with <span class="inline-code-teal">Konsole</span> you need to right-click in the terminal window, then edit current profile and select the starting shell from /etc/bash to /etc/zsh.</p>
+          <p class="note-block">In KDE Plasma with <span class="inline-code-teal">Konsole</span> you need to right-click in the terminal window, then edit current profile and select the starting shell from /bin/bash to /bin/zsh)</p>
         </div>
       </div>
     </div>
@@ -881,7 +881,7 @@ sudo rm -rf nerd-fonts</code></pre><button class="copy-btn" onclick="copyCode(th
         <div class="dd-item-icon"><i class="fa-solid fa-globe"></i></div>
         <div class="flex-1">
           <div class="dd-item-title">Browser Recommendations</div>
-          <div class="dd-item-desc">Browser</div>
+          <div class="dd-item-desc">Helium and Brave browser</div>
         </div>
         <div class="dd-chevron"><i class="fa-solid fa-chevron-down" style="font-size:12px"></i></div>
       </div>
