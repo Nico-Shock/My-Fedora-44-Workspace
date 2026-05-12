@@ -10,7 +10,7 @@
 
 Dependencies:
 ```
-sudo dnf in extra-cmake-modules qt5-qtbase-devel "kf5-*devel" "kf6-*devel" kdecoration-devel qt6-qtsvg-deve
+sudo dnf in extra-cmake-modules qt5-qtbase-devel "kf5-*devel" "kf6-*devel" kdecoration-devel qt6-qtsvg-devel
 ```
 
 Necessary tools:
