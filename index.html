@@ -20,7 +20,7 @@
           },
           colors: {
             copilot: {
-              blue: '#0f6cbd',
+              blue: '#5b5bd6',
               blurple: '#4f52b2',
             }
           }
@@ -55,22 +55,22 @@
     html.theme-black {
       --bg: #000000;
       --surface: #0f0f0f;
-      --border: #262626;
+      --border: #2e2820;
       --text: #e8e8e8;
       --text-muted: #a8a8a8;
       --code-bg: #0a0a0a;
-      --primary: #818cf8;
-      --primary-text: #ffffff;
+      --primary: #d9cdc1;
+      --primary-text: #1a1510;
       --glass-bg: rgba(18, 18, 18, 0.55);
-      --code-teal-text: #6bc4b8;
-      --code-teal-bg: #0a2e2a;
+      --code-teal-text: #c4b5a0;
+      --code-teal-bg: #1f1a14;
       --dd-bg: rgba(18, 18, 18, 0.55);
-      --dd-active: rgba(255,255,255,0.055);
-      --dd-hover: rgba(255,255,255,0.04);
+      --dd-active: rgba(217, 205, 193, 0.065);
+      --dd-hover: rgba(217, 205, 193, 0.04);
       --dd-text: #e8e8e8;
       --dd-muted: #a8a8a8;
       --dd-icon: #a8a8a8;
-      --dd-border: rgba(255,255,255,0.055);
+      --dd-border: rgba(217, 205, 193, 0.09);
       --shadow-card: 0 8px 32px rgba(0,0,0,0.25);
       --shadow-dd: 0 4px 16px rgba(0,0,0,0.25);
     }
@@ -102,6 +102,7 @@
     .code-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
     .code-scroll::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
 
+    /* Glassmorphism group */
     .dd-group {
       background: var(--dd-bg);
       backdrop-filter: blur(20px);
@@ -198,6 +199,7 @@
       }
     }
 
+    /* Code Block */
     .code-block {
       background: var(--glass-bg);
       backdrop-filter: blur(24px);
@@ -219,6 +221,7 @@
       transition: color 0.2s;
     }
 
+    /* Desktop: copy inside code block */
     @media (min-width: 640px) {
       .code-block pre {
         padding-right: 80px;
@@ -230,6 +233,7 @@
       }
     }
 
+    /* Mobile: copy button next to code block */
     @media (max-width: 639px) {
       .code-block {
         display: flex;
@@ -261,6 +265,7 @@
       color: var(--primary);
     }
 
+    /* Toggle Button — icon only */
     .theme-toggle {
       position: fixed;
       top: 16px;
@@ -297,6 +302,7 @@
       transform: rotate(180deg);
     }
 
+    /* Section card */
     .section-card {
       background: var(--glass-bg);
       backdrop-filter: blur(20px);
@@ -318,6 +324,7 @@
       transition: color 0.2s, border-color 0.2s;
     }
 
+    /* Notes / info blocks */
     .note-block {
       font-size: 14px;
       color: var(--text-muted);
@@ -331,6 +338,7 @@
       border-radius: 4px;
     }
 
+    /* Lists */
     .content-list {
       list-style: disc;
       padding-left: 20px;
@@ -359,22 +367,22 @@
     .sub-heading:first-child { margin-top: 0; }
 
     a, .note-block a, .content-list a, .content-ol a, p a, li a {
-      color: #1a3a6b !important;
+      color: #5b5bd6 !important;
       text-decoration: underline;
-      text-decoration-color: rgba(26, 58, 107, 0.3);
+      text-decoration-color: rgba(91, 91, 214, 0.35);
       text-underline-offset: 3px;
       font-weight: 600;
     }
     a:hover, .note-block a:hover, .content-list a:hover {
-      text-decoration-color: #1a3a6b !important;
+      text-decoration-color: #5b5bd6 !important;
     }
 
     html.theme-black a, html.theme-black .note-block a, html.theme-black .content-list a, html.theme-black .content-ol a, html.theme-black p a, html.theme-black li a {
-      color: #7ba4e0 !important;
-      text-decoration-color: rgba(123, 164, 224, 0.35) !important;
+      color: #d9cdc1 !important;
+      text-decoration-color: rgba(217, 205, 193, 0.4) !important;
     }
     html.theme-black a:hover, html.theme-black .note-block a:hover, html.theme-black .content-list a:hover {
-      text-decoration-color: #7ba4e0 !important;
+      text-decoration-color: #d9cdc1 !important;
     }
 
     .page-title {
@@ -406,7 +414,7 @@
     }
 </style>
 </head>
-<body class="antialiased selection:bg-copilot-blue selection:text-white pb-20">
+<body class="antialiased selection:bg-copilot-blue selection:bg-amber-800/70 selection:text-white pb-20">
 
 <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Theme wechseln">
   <i class="fa-solid fa-moon" id="theme-icon"></i>
@@ -436,7 +444,7 @@
       <div class="dd-content">
         <div class="dd-content-inner">
           <p class="sub-heading">Dependencies:</p>
-          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in extra-cmake-modules qt5-qtbase-devel "kf5-*devel" "kf6-*devel" kdecoration-devel qt6-qtsvg-devel</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in extra-cmake-modules qt5-qtbase-devel "kf5-*devel" "kf6-*devel" kdecoration-devel</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
           <p class="sub-heading">Necessary tools:</p>
           <div class="code-block"><pre class="code-scroll"><code>sudo dnf in vim kernel-devel kernel-headers</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
         </div>
@@ -935,6 +943,7 @@ sudo rm -rf nerd-fonts</code></pre><button class="copy-btn" onclick="copyCode(th
 </div>
 
 <script>
+    // Theme Toggle
     let currentTheme = localStorage.getItem('fedora-theme') || 'light';
 
     function applyTheme(theme) {
@@ -955,6 +964,7 @@ sudo rm -rf nerd-fonts</code></pre><button class="copy-btn" onclick="copyCode(th
 
     applyTheme(currentTheme);
 
+    // Accordion Toggle
     function toggleAccordion(item) {
       const content = item.nextElementSibling;
       const isOpen = item.classList.contains('active');
@@ -970,6 +980,7 @@ sudo rm -rf nerd-fonts</code></pre><button class="copy-btn" onclick="copyCode(th
       }
     }
 
+    // Re-calculate open accordion heights on theme change
     const themeObserver = new MutationObserver(() => {
       document.querySelectorAll('.dd-content.open').forEach(el => {
         el.style.maxHeight = el.scrollHeight + 'px';
@@ -977,6 +988,7 @@ sudo rm -rf nerd-fonts</code></pre><button class="copy-btn" onclick="copyCode(th
     });
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
+    // Copy Code
     function copyCode(btn) {
       const pre = btn.previousElementSibling;
       const codeText = pre.innerText;
