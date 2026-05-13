@@ -102,7 +102,6 @@
     .code-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
     .code-scroll::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
 
-    /* Glassmorphism group */
     .dd-group {
       background: var(--dd-bg);
       backdrop-filter: blur(20px);
@@ -221,7 +220,6 @@
       transition: color 0.2s;
     }
 
-    /* Desktop: copy inside code block */
     @media (min-width: 640px) {
       .code-block pre {
         padding-right: 80px;
@@ -233,7 +231,6 @@
       }
     }
 
-    /* Mobile: copy button next to code block */
     @media (max-width: 639px) {
       .code-block {
         display: flex;
@@ -265,7 +262,6 @@
       color: var(--primary);
     }
 
-    /* Toggle Button — icon only */
     .theme-toggle {
       position: fixed;
       top: 16px;
@@ -302,7 +298,6 @@
       transform: rotate(180deg);
     }
 
-    /* Section card */
     .section-card {
       background: var(--glass-bg);
       backdrop-filter: blur(20px);
@@ -324,7 +319,6 @@
       transition: color 0.2s, border-color 0.2s;
     }
 
-    /* Notes / info blocks */
     .note-block {
       font-size: 14px;
       color: var(--text-muted);
@@ -338,7 +332,6 @@
       border-radius: 4px;
     }
 
-    /* Lists */
     .content-list {
       list-style: disc;
       padding-left: 20px;
@@ -943,7 +936,6 @@ sudo rm -rf nerd-fonts</code></pre><button class="copy-btn" onclick="copyCode(th
 </div>
 
 <script>
-    // Theme Toggle
     let currentTheme = localStorage.getItem('fedora-theme') || 'light';
 
     function applyTheme(theme) {
@@ -964,7 +956,6 @@ sudo rm -rf nerd-fonts</code></pre><button class="copy-btn" onclick="copyCode(th
 
     applyTheme(currentTheme);
 
-    // Accordion Toggle
     function toggleAccordion(item) {
       const content = item.nextElementSibling;
       const isOpen = item.classList.contains('active');
@@ -980,7 +971,6 @@ sudo rm -rf nerd-fonts</code></pre><button class="copy-btn" onclick="copyCode(th
       }
     }
 
-    // Re-calculate open accordion heights on theme change
     const themeObserver = new MutationObserver(() => {
       document.querySelectorAll('.dd-content.open').forEach(el => {
         el.style.maxHeight = el.scrollHeight + 'px';
@@ -988,7 +978,6 @@ sudo rm -rf nerd-fonts</code></pre><button class="copy-btn" onclick="copyCode(th
     });
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
-    // Copy Code
     function copyCode(btn) {
       const pre = btn.previousElementSibling;
       const codeText = pre.innerText;
