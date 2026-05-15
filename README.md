@@ -48,22 +48,12 @@ sudo dnf group install multimedia
 
 ### Install Nvidia Drivers
 ```
-sudo dnf in -y @base-x gcc make dkms acpid libglvnd-devel pkgconf xorg-x11-server-Xwayland libxcb egl-wayland akmod-nvidia xorg-x11-drv-nvidia-cuda --skip-broken --allowerasing
+sudo dnf in -y akmod-nvidia xorg-x11-drv-nvidia-cuda
 sudo reboot now
 ```
 
 ```
-sudo su
-```
-
-```
-echo "blacklist nouveau" >> /modprobe.d/blacklist.conf
-echo "blacklist nova_core" >> /modprobe.d/blacklist.conf
-```
-
-```
-echo "options nvidia NVreg_PreserveVideoMemoryAllocations=1" >> /modprobe.d/nvidia.conf
-echo "options nvidia-drm modeset=1 fbdev=0" >> /modprobe.d/nvidia.conf
+sudo dnf in libva-nvidia-driver vdpauinfo libva-utils vulkan-loader vulkan-tools
 ```
 
 # General Steps
