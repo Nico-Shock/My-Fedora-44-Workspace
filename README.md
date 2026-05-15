@@ -110,7 +110,7 @@ sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 
 ### Installing Gaming Meta
 ```
-sudo dnf in -y steam lutris wine bottles gamescope mangohud libva-utils vulkan-tools mesa-dri-drivers mesa-vulkan-drivers gamemode libadwaita wine-dxvk dxvk-native goverlay --skip-broken
+sudo dnf in -y steam lutris wine bottles gamescope mangohud libva-utils mesa-dri-drivers mesa-vulkan-drivers gamemode libadwaita wine-dxvk dxvk-native goverlay --skip-broken
 sudo dnf copr enable atim/heroic-games-launcher
 sudo dnf in -y heroic-games-launcher-bin
 ```
