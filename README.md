@@ -10,12 +10,12 @@
 
 Dependencies:
 ```
-sudo dnf in extra-cmake-modules qt5-qtbase-devel "kf5-*devel" "kf6-*devel" kdecoration-devel qt6-qtsvg-devel
+sudo dnf in -y extra-cmake-modules qt5-qtbase-devel "kf5-*devel" "kf6-*devel" kdecoration-devel qt6-qtsvg-devel
 ```
 
 Necessary tools:
 ```
-sudo dnf in vim kernel-devel kernel-headers
+sudo dnf in -y vim kernel-devel kernel-headers
 ```
 
 ### Make Download Faster
@@ -38,12 +38,20 @@ sudo ufw default deny
 - Only install `gnome-tweaks` and `gedit` if you plan to install the Gnome desktop.
 - If you want to use KDE Plasma, use these tools instead:
 ```
-sudo dnf in kate 
+sudo dnf in -y kate 
 ```
 
 Install Multimedia libraries:
 ```
-sudo dnf group install multimedia
+sudo dnf group install -y multimedia
+```
+
+### Install third-party repositories (required for Nvidia)
+
+```
+sudo dnf in -y \
+https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 ```
 
 ### Install Nvidia Drivers
@@ -53,7 +61,7 @@ sudo reboot now
 ```
 
 ```
-sudo dnf in libva-nvidia-driver vdpauinfo libva-utils vulkan-loader vulkan-tools
+sudo dnf in -y libva-nvidia-driver vdpauinfo libva-utils vulkan-loader vulkan-tools
 ```
 
 # General Steps
@@ -62,7 +70,7 @@ sudo dnf in libva-nvidia-driver vdpauinfo libva-utils vulkan-loader vulkan-tools
 
 Gnome:
 ```
-sudo dnf in gnome-shell ptyxis gnome-control-center gnome-software gnome-menus gnome-shell-extensions gnome-system-monitor mutter gdm
+sudo dnf in -y gnome-shell ptyxis gnome-control-center gnome-software gnome-menus gnome-shell-extensions gnome-system-monitor mutter gdm
 sudo systemctl enable gdm
 ```
 
@@ -87,7 +95,7 @@ sudo reboot now
 ### Install the Terra Repo
 
 ```
-sudo dnf in --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
+sudo dnf in -y --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
 ```
 
 ### Installing the CachyOS Kernel
@@ -370,7 +378,7 @@ Mainly I use the **MacOS Tahoe** one, you need to manually install these: https:
 
 - Helium:
 ```
-sudo dnf in helium-browser-bin
+sudo dnf in -y helium-browser-bin
 ```
 
 - Brave
