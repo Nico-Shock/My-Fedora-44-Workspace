@@ -496,15 +496,9 @@ sudo ufw default deny</code></pre><button class="copy-btn" onclick="copyCode(thi
       </div>
       <div class="dd-content">
         <div class="dd-content-inner">
-          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in -y @base-x gcc make dkms acpid libglvnd-devel pkgconf xorg-x11-server-Xwayland libxcb egl-wayland akmod-nvidia xorg-x11-drv-nvidia-cuda --skip-broken --allowerasing
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in -y akmod-nvidia xorg-x11-drv-nvidia-cuda
 sudo reboot now</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-          <div class="code-block"><pre class="code-scroll"><code>sudo su</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-          <p class="note-block" style="margin-bottom:12px">Blacklist the nouveau driver:</p>
-          <div class="code-block"><pre class="code-scroll"><code>echo "blacklist nouveau" >> /modprobe.d/blacklist.conf
-echo "blacklist nova_core" >> /modprobe.d/blacklist.conf</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-          <p class="note-block" style="margin-bottom:12px">Set Nvidia kernel options:</p>
-          <div class="code-block"><pre class="code-scroll"><code>echo "options nvidia NVreg_PreserveVideoMemoryAllocations=1" >> /modprobe.d/nvidia.conf
-echo "options nvidia-drm modeset=1 fbdev=0" >> /modprobe.d/nvidia.conf</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in libva-nvidia-driver vdpauinfo libva-utils vulkan-loader vulkan-tools</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
         </div>
       </div>
     </div>
