@@ -59,18 +59,18 @@
       --text: #e8e8e8;
       --text-muted: #a8a8a8;
       --code-bg: #0a0a0a;
-      --primary: #d9cdc1;
+      --primary: #e6d5c3; /* Kräftigeres Beige für bessere Sichtbarkeit */
       --primary-text: #1a1510;
       --glass-bg: rgba(18, 18, 18, 0.55);
       --code-teal-text: #c4b5a0;
       --code-teal-bg: #1f1a14;
       --dd-bg: rgba(18, 18, 18, 0.55);
-      --dd-active: rgba(217, 205, 193, 0.065);
-      --dd-hover: rgba(217, 205, 193, 0.04);
+      --dd-active: rgba(230, 213, 195, 0.08);
+      --dd-hover: rgba(230, 213, 195, 0.05);
       --dd-text: #e8e8e8;
       --dd-muted: #a8a8a8;
       --dd-icon: #a8a8a8;
-      --dd-border: rgba(217, 205, 193, 0.09);
+      --dd-border: rgba(230, 213, 195, 0.12);
       --shadow-card: 0 8px 32px rgba(0,0,0,0.25);
       --shadow-dd: 0 4px 16px rgba(0,0,0,0.25);
     }
@@ -80,6 +80,16 @@
       color: var(--text);
       transition: background-color 0.2s, color 0.2s;
       font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    }
+
+    ::selection {
+      background-color: var(--primary);
+      color: var(--primary-text);
+    }
+    
+    ::-moz-selection {
+      background-color: var(--primary);
+      color: var(--primary-text);
     }
 
     .surface { background-color: var(--surface); }
@@ -371,11 +381,11 @@
     }
 
     html.theme-black a, html.theme-black .note-block a, html.theme-black .content-list a, html.theme-black .content-ol a, html.theme-black p a, html.theme-black li a {
-      color: #d9cdc1 !important;
-      text-decoration-color: rgba(217, 205, 193, 0.4) !important;
+      color: #e6d5c3 !important;
+      text-decoration-color: rgba(230, 213, 195, 0.4) !important;
     }
     html.theme-black a:hover, html.theme-black .note-block a:hover, html.theme-black .content-list a:hover {
-      text-decoration-color: #d9cdc1 !important;
+      text-decoration-color: #e6d5c3 !important;
     }
 
     .page-title {
@@ -407,7 +417,7 @@
     }
 </style>
 </head>
-<body class="antialiased selection:bg-copilot-blue selection:bg-amber-800/70 selection:text-white pb-20">
+<body class="antialiased pb-20">
 
 <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Theme wechseln">
   <i class="fa-solid fa-moon" id="theme-icon"></i>
@@ -437,7 +447,7 @@
       <div class="dd-content">
         <div class="dd-content-inner">
           <p class="sub-heading">Dependencies:</p>
-          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in extra-cmake-modules qt5-qtbase-devel "kf5-*devel" "kf6-*devel qt6-qtsvg-devel" kdecoration-devel</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in extra-cmake-modules qt5-qtbase-devel "kf5-*devel" "kf6-*devel" kdecoration-devel qt6-qtsvg-devel</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
           <p class="sub-heading">Necessary tools:</p>
           <div class="code-block"><pre class="code-scroll"><code>sudo dnf in vim kernel-devel kernel-headers</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
         </div>
@@ -582,7 +592,7 @@ sudo grub2-mkconfig -o /boot/grub2/grub.cfg</code></pre><button class="copy-btn"
       </div>
       <div class="dd-content">
         <div class="dd-content-inner">
-          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in -y steam lutris wine bottles gamescope mangohud libva-utils vulkan-tools mesa-dri-drivers mesa-vulkan-drivers gamemode libadwaita wine-dxvk dxvk-native goverlay --skip-broken</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in -y steam lutris wine bottles gamescope mangohud libva-utils vulkan-loader vulkan-tools mesa-dri-drivers mesa-vulkan-drivers gamemode libadwaita wine-dxvk dxvk-native goverlay --skip-broken</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
           <div class="code-block"><pre class="code-scroll"><code>sudo dnf copr enable atim/heroic-games-launcher
 sudo dnf in -y heroic-games-launcher-bin</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
         </div>
