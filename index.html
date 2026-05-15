@@ -80,6 +80,7 @@
       color: var(--text);
       transition: background-color 0.2s, color 0.2s;
       font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      font-size: 105%;
     }
 
     ::selection {
@@ -446,9 +447,9 @@
       <div class="dd-content">
         <div class="dd-content-inner">
           <p class="sub-heading">Dependencies:</p>
-          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in extra-cmake-modules qt5-qtbase-devel "kf5-*devel" "kf6-*devel" kdecoration-devel qt6-qtsvg-devel</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in -y extra-cmake-modules qt5-qtbase-devel "kf5-*devel" "kf6-*devel" kdecoration-devel qt6-qtsvg-devel</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
           <p class="sub-heading">Necessary tools:</p>
-          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in vim kernel-devel kernel-headers</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in -y vim kernel-devel kernel-headers</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
         </div>
       </div>
     </div>
@@ -487,9 +488,27 @@ sudo systemctl enable --now ufw bluetooth
 sudo ufw default deny</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
           <p class="note-block" style="margin-bottom:12px">Only install <span class="inline-code-teal">gnome-tweaks</span> and <span class="inline-code-teal">gedit</span> if you plan to install the Gnome desktop.</p>
           <p class="note-block" style="margin-bottom:12px">If you want to use KDE Plasma, use these tools instead:</p>
-          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in kate</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in -y kate</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
           <p class="sub-heading">Install Multimedia libraries:</p>
-          <div class="code-block"><pre class="code-scroll"><code>sudo dnf group install multimedia</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf group install -y multimedia</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="dd-item" onclick="toggleAccordion(this)">
+        <div class="dd-item-icon"><i class="fa-solid fa-server"></i></div>
+        <div class="flex-1">
+          <div class="dd-item-title">Install Third-Party Repositories</div>
+          <div class="dd-item-desc">RPM Fusion repositories (required for Nvidia)</div>
+        </div>
+        <div class="dd-chevron"><i class="fa-solid fa-chevron-down" style="font-size:12px"></i></div>
+      </div>
+      <div class="dd-content">
+        <div class="dd-content-inner">
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in -y \
+https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
         </div>
       </div>
     </div>
@@ -507,7 +526,7 @@ sudo ufw default deny</code></pre><button class="copy-btn" onclick="copyCode(thi
         <div class="dd-content-inner">
           <div class="code-block"><pre class="code-scroll"><code>sudo dnf in -y akmod-nvidia xorg-x11-drv-nvidia-cuda
 sudo reboot now</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in libva-nvidia-driver vdpauinfo libva-utils vulkan-loader vulkan-tools</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in -y libva-nvidia-driver vdpauinfo libva-utils vulkan-loader vulkan-tools</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
         </div>
       </div>
     </div>
@@ -529,7 +548,7 @@ sudo reboot now</code></pre><button class="copy-btn" onclick="copyCode(this)">Co
       <div class="dd-content">
         <div class="dd-content-inner">
           <p class="sub-heading">Gnome:</p>
-          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in gnome-shell ptyxis gnome-control-center gnome-software gnome-menus gnome-shell-extensions gnome-system-monitor mutter gdm
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in -y gnome-shell ptyxis gnome-control-center gnome-software gnome-menus gnome-shell-extensions gnome-system-monitor mutter gdm
 sudo systemctl enable gdm</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
           <p class="sub-heading">KDE Plasma:</p>
           <div class="code-block"><pre class="code-scroll"><code>sudo dnf in -y plasma-desktop konsole ark sddm dolphin
@@ -554,7 +573,7 @@ sudo systemctl enable sddm</code></pre><button class="copy-btn" onclick="copyCod
       </div>
       <div class="dd-content">
         <div class="dd-content-inner">
-          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in -y --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
         </div>
       </div>
     </div>
@@ -883,7 +902,7 @@ sudo rm -rf nerd-fonts</code></pre><button class="copy-btn" onclick="copyCode(th
       <div class="dd-content">
         <div class="dd-content-inner">
           <p class="sub-heading">Helium:</p>
-          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in helium-browser-bin</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-block"><pre class="code-scroll"><code>sudo dnf in -y helium-browser-bin</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
           <p class="sub-heading">Brave:</p>
           <div class="code-block"><pre class="code-scroll"><code>curl -fsS https://dl.brave.com/install.sh | sh</code></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
         </div>
