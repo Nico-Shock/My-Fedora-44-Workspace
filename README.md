@@ -22,7 +22,7 @@ sudo dnf in vim kernel-devel kernel-headers
 ```
 sudo vim /etc/dnf/dnf.conf
 ```
-Add the following lines:
+Add the following line:
 ```
 max_parallel_downloads=20
 ```
